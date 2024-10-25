@@ -1,3 +1,6 @@
+image_store
+*.db
+
 #CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
@@ -10,6 +13,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json Prerequisites
+
 *.d
 
 # Compiled Object files

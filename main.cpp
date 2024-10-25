@@ -1,9 +1,20 @@
+/**
+ *
+ * @file main.cpp
+ *
+ * @brief main entry point for image-store
+ *
+ * @ingroup image-store
+ *
+ * @author Euan Williams
+ *
+*/
 #include <iostream>
 
-int add(int x, int y);
+#include "src/database.cpp"
 
-int main()
-{
-    std::cout << "Adding 2 and 9 together gives you: " << add(2, 9) << '\n';
-    return 0;
+int main() {
+  DatabaseInterface myDatabase = DatabaseInterface("test.db");
+  myDatabase.connect_to_database();
+  return 0;
 }
