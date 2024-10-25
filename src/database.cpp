@@ -36,8 +36,8 @@ class DatabaseInterface {
       sqlite3_close(database);
     };
 
-    void query_database() {
-
+    void query() {
+      
     }
 
 };
