@@ -15,7 +15,7 @@ find_package(SQLite3 REQUIRED)
 add_executable(image_store
     ../main.cpp
     ../src/database.cpp
-    ../src/add.cpp)
+)
 
 # Link the SQLite3 library to your executable
 target_link_libraries(image_store SQLite::SQLite3)
