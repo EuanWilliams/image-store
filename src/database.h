@@ -9,27 +9,28 @@
  * @author Euan williams
  *
  */
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <sqlite3.h>
 
 class DatabaseInterface {
-  private:
-
   public:
-    std::string database_name;
+    std::string database_file;
     sqlite3* database;
-    DatabaseInterface(std::string database_name) {
-      this->database_name = database_name;
+
+    DatabaseInterface(std::string database_file) {
+      this->database_file = database_file;
     }
   
     bool connect_to_database() {
-        int error = sqlite3_open(database_name.c_str(), &database);
+        int error = sqlite3_open(database_file.c_str(), &database);
         if (error) {
             std::cerr << "Can't open database: " << sqlite3_errmsg(database) << std::endl;
             return false;
         } else {
-            std::cout << "Opened database " << database_name << " successfully" << std::endl;
+            std::cout << "Opened database " << database_file << " successfully" << std::endl;
             return true;
         }
     }
@@ -70,5 +71,4 @@ class DatabaseInterface {
         return 0;
     }
 };
-
 

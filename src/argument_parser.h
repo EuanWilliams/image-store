@@ -9,6 +9,8 @@
  * @author Euan Williams
  *
 */
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -46,3 +48,4 @@ Arguments parse_args(int argc, char* argv[]) {
     parsed_args.mode = parse_arg(args, "--mode");
     return parsed_args;
 };
+
