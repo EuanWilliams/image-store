@@ -14,7 +14,8 @@ find_package(SQLite3 REQUIRED)
 # Add the executable
 add_executable(image_store
     ../main.cpp
-    ../src/database.cpp
+    ../src/database.h
+    ../src/argument_parser.h
 )
 
 # Link the SQLite3 library to your executable
