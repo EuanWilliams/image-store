@@ -3,6 +3,9 @@
 //
 // Encapsulates data about an image
 //
+#pragma once
+
+#include <iostream>
 
 class Image {
   public:
