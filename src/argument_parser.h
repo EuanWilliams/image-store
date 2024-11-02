@@ -29,7 +29,7 @@ std::string parse_arg(std::vector<std::string> raw_args, std::string key) {
     std::string value = raw_args[arg_position + 1];
 
     if (index == raw_args.end()) {
-      std::cout << "Not found." << std::endl;
+      std::cout << "\t" << key << " not found." << std::endl;
     }
     else {
       std::cout << " - Found argument '" << key << "' value: '" << value << "'" << std::endl;
@@ -37,15 +37,17 @@ std::string parse_arg(std::vector<std::string> raw_args, std::string key) {
     return value;
 }
 
+// Parses cli arguments, returns them as an argument object.
 Arguments parse_args(int argc, char* argv[]) {
-    std::cout << "Parsing args..." << std::endl;
+    std::cout << "\nParsing args..." << std::endl;
 
     // Convert argv to a vector of strings for easier handling
     std::vector<std::string> args(argv, argv + argc);
 
     Arguments parsed_args;
-
     parsed_args.mode = parse_arg(args, "--mode");
+
+    std::cout << "\n" << std::endl;
     return parsed_args;
 };
 

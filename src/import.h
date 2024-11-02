@@ -9,6 +9,7 @@
  * @author Euan Williams
  *
 */
+#pragma once
 
 #include <iostream>
 

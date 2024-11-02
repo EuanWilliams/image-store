@@ -16,7 +16,8 @@ add_executable(image_store
     ../main.cpp
     ../src/database.h
     ../src/argument_parser.h
-    ../src/import.cpp
+    ../src/import.h
+    ../src/image.h
 )
 
 # Link the SQLite3 library to your executable
