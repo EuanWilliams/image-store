@@ -10,4 +10,8 @@
 class Image {
   public:
     int id;
-}
+    std::string filepath;
+    int import_date;
+    std::string import_date;
+    std::string import_metadata;
+};
