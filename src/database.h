@@ -1,14 +1,8 @@
-/**
- *
- * @file databse.cpp
- *
- * @brief a wrapper around sqlite, for interfacing with the local database.
- *
- * @ingroup image-store
- *
- * @author Euan williams
- *
- */
+//
+// Euan Williams: 03/11/2024
+//
+// Create, manage, close, use an sqlite3 database connection
+//
 #pragma once
 
 #include <iostream>
@@ -43,12 +37,12 @@ class DatabaseInterface {
   
     bool connect_to_database() {
         int error = sqlite3_open(database_file.c_str(), &database);
-        std::cout << "Opening database file at " << database_file.c_str() << std::endl;
+        std::cout << "Opening database file at " << database_file.c_str();
         if (error) {
-            std::cerr << "Can't open database: " << sqlite3_errmsg(database) << std::endl;
+            std::cerr << " ...unable to open database: " << sqlite3_errmsg(database) << std::endl;
             return false;
         } else {
-            std::cout << "Opened database " << database_file << " successfully" << std::endl;
+            std::cout << " ...database opened successfully" << std::endl;
             return true;
         }
     }
@@ -56,9 +50,9 @@ class DatabaseInterface {
     // query execution method
     void execute_query(const std::string &query) {
         char* error_message = nullptr;
-        
+
         int result = sqlite3_exec(database, query.c_str(), callback, nullptr, &error_message);
-        
+
         if (result != SQLITE_OK) {
             std::cerr << "error executing query: " << error_message << std::endl;
             sqlite3_free(error_message);
@@ -113,7 +107,6 @@ DatabaseInterface setup_db(std::string database_file) {
     database.execute_query(pragma_query);
   }
   else {
-    std::cout << "Database file " << database_file << " found, opening" << std::endl;
     DatabaseInterface database = DatabaseInterface(database_file);
     database.connect_to_database();
     // TODO: check pragma version here. 

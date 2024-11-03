@@ -13,5 +13,6 @@ class Image {
     std::string filepath;
     int import_date;
     std::string import_date;
+    std::string import_source;
     std::string import_metadata;
 };

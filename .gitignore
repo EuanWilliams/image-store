@@ -1,5 +1,7 @@
 image_store
 *.db
+.DS_Store
+dataset/
 
 #CMakeLists.txt.user
 CMakeCache.txt

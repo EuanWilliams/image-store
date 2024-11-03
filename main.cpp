@@ -1,14 +1,8 @@
-/**
- *
- * @file main.cpp
- *
- * @brief main entry point for image-store
- *
- * @ingroup image-store
- *
- * @author Euan Williams
- *
-*/
+//
+// Euan Williams: 03/11/2024
+//
+// For importing, storing and managing images and their respective metadata.
+//
 #include <iostream>
 
 #include "src/argument_parser.h"
@@ -20,23 +14,25 @@ const std::string MODE_IMPORT = "import";
 const std::string DATA_DIR = "dataset/";
 const std::string DATABASE_FILE = DATA_DIR  + "database.db";
 
-void import_images() {
-  
+
+void import_images(Arguments opt) {
+  ImageImporter image_importer = ImageImporter(DATABASE_FILE);
+  std::string image_path_to_import = DATA_DIR + "fishing.jpeg";
+
+  ImageToImport image_to_import = ImageToImport(image_path_to_import, "test");
+  std::vector images_to_import = {image_to_import};
+  image_importer.import_images(images_to_import);
 };
+
 
 int main(int argc, char* argv[]) {
   Arguments opt = parse_args(argc, argv);
   if (opt.mode == MODE_IMPORT) {
-    import_images();
+    import_images(opt);
   } 
   // else {
   //   throw std::invalid_argument("Unhandled mode: " + opt.mode);
   // }
   
-  setup_db(DATABASE_FILE);
-  /*myDatabase.connect_to_database();*/
-  /*myDatabase.execute_query("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, name TEXT, age INTEGER);");*/
-  /*myDatabase.execute_query("INSERT INTO users (name, age) VALUES ('euan', 25);");*/
-  /*myDatabase.execute_query("SELECT * FROM users;");*/
   return 0;
 }
