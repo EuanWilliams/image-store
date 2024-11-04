@@ -44,7 +44,11 @@ class ImageImporter {
     bool import_images(std::vector<ImageToImport> images) {
       for (const ImageToImport image_to_import : images) {
         std::cout << "Importing image: " << image_to_import.original_filepath << std::endl;
-        read_image(image_to_import.original_filepath);
+        // TODO: Fix this return type
+        // this doesnt work!
+        int image = read_image(image_to_import.original_filepath);
+        // easyexif::EXIFInfo result = parse_jpeg_exif(image, fsize);
+        //output_exif_results(result);
       };
     };
 };

@@ -16,34 +16,18 @@ class Image {
     std::string import_metadata;
 };
 
-// Reads an image into a buffer
-int read_image(std::string image_path) {
-  // Read the JPEG file into a buffer
-  FILE *fp = std::fopen(image_path.c_str(), "rb");
-  if (!fp) {
-    printf("Can't open file.\n");
-    return -1;
-  }
-  fseek(fp, 0, SEEK_END);
-  unsigned long fsize = ftell(fp);
-  rewind(fp);
-  unsigned char *buf = new unsigned char[fsize];
-  if (fread(buf, 1, fsize, fp) != fsize) {
-    printf("Can't read file.\n");
-    delete[] buf;
-    return -2;
-  }
-  fclose(fp);
-
+easyexif::EXIFInfo parse_jpeg_exif(unsigned char *buffer, unsigned long fsize) {
   // Parse EXIF
   easyexif::EXIFInfo result;
-  int code = result.parseFrom(buf, fsize);
-  delete[] buf;
+  int code = result.parseFrom(buffer, fsize);
+  delete[] buffer;
   if (code) {
     printf("Error parsing EXIF: code %d\n", code);
-    return -3;
   }
+  return result;
+};
 
+void output_exif_results(easyexif::EXIFInfo result) {
   // Dump EXIF information
   printf("Camera make          : %s\n", result.Make.c_str());
   printf("Camera model         : %s\n", result.Model.c_str());
@@ -91,4 +75,30 @@ int read_image(std::string image_path) {
   printf("Lens model           : %s\n", result.LensInfo.Model.c_str());
   printf("Focal plane XRes     : %f\n", result.LensInfo.FocalPlaneXResolution);
   printf("Focal plane YRes     : %f\n", result.LensInfo.FocalPlaneYResolution);
+};
+
+// Reads a JPEG into a buffer
+// TODO: This return type is wrong
+int read_image(std::string image_path) {
+  // Open file to file pointer "*fp"
+  FILE *fp = std::fopen(image_path.c_str(), "rb");
+  if (!fp) {
+    printf("Can't open file.\n");
+    return -1;
+  }
+ 
+  // Check size of open file by moving pointer to end of file, and using ftell to find the location of the pointer. Finally move the pointer back to the start
+  // of the file.
+  fseek(fp, 0, SEEK_END);
+  unsigned long fsize = ftell(fp);
+  rewind(fp);
+ 
+  // Create a new buffer, *buf, using the size we just found, use fread to read the image into the buffer.
+  unsigned char *buf = new unsigned char[fsize];
+  if (fread(buf, 1, fsize, fp) != fsize) {
+    printf("Can't read file.\n");
+    delete[] buf;
+    return -2;
+  }
+  fclose(fp);
 };

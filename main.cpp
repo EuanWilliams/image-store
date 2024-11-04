@@ -17,7 +17,7 @@ const std::string DATABASE_FILE = DATA_DIR  + "database.db";
 
 void import_images(Arguments opt) {
   ImageImporter image_importer = ImageImporter(DATABASE_FILE);
-  std::string image_path_to_import = DATA_DIR + "fishing.jpeg";
+  std::string image_path_to_import = DATA_DIR + "allotment.jpeg";
 
   ImageToImport image_to_import = ImageToImport(image_path_to_import, "test");
   std::vector images_to_import = {image_to_import};
