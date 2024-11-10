@@ -15,6 +15,10 @@ const std::string DATA_DIR = "dataset/";
 const std::string DATABASE_FILE = DATA_DIR  + "database.db";
 
 
+void validate_import_args (Arguments opt) {
+};
+
+
 void import_images(Arguments opt) {
   ImageImporter image_importer = ImageImporter(DATABASE_FILE);
   std::string image_path_to_import = DATA_DIR + "allotment.jpeg";
