@@ -1,14 +1,8 @@
-/**
- *
- * @file argument_paraser.cpp
- *
- * @brief for parsing command line arguments
- *
- * @ingroup image-store
- *
- * @author Euan Williams
- *
-*/
+//
+// Euan Williams: 10/11/2024
+//
+// For parsing command line arguments
+//
 #pragma once
 
 #include <iostream>
