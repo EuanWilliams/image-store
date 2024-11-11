@@ -79,12 +79,12 @@ void output_exif_results(easyexif::EXIFInfo result) {
 
 // Reads a JPEG into a buffer
 // TODO: This return type is wrong
-int read_image(std::string image_path) {
+std::optional<unsigned char*> read_image(std::string image_path) {
   // Open file to file pointer "*fp"
   FILE *fp = std::fopen(image_path.c_str(), "rb");
   if (!fp) {
     printf("Can't open file.\n");
-    return -1;
+    return std::nullopt;
   }
  
   // Check size of open file by moving pointer to end of file, and using ftell to find the location of the pointer. Finally move the pointer back to the start
@@ -98,7 +98,9 @@ int read_image(std::string image_path) {
   if (fread(buf, 1, fsize, fp) != fsize) {
     printf("Can't read file.\n");
     delete[] buf;
-    return -2;
+    return std::nullopt;
   }
   fclose(fp);
+
+  return buf;
 };

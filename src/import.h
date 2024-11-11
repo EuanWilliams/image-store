@@ -46,7 +46,8 @@ class ImageImporter {
         std::cout << "Importing image: " << image_to_import.original_filepath << std::endl;
         // TODO: Fix this return type
         // this doesnt work!
-        int image = read_image(image_to_import.original_filepath);
+        
+        // std::optional<unsigned char> = read_image(image_to_import.original_filepath);
         // easyexif::EXIFInfo result = parse_jpeg_exif(image, fsize);
         //output_exif_results(result);
       };
