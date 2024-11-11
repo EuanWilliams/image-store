@@ -4,6 +4,7 @@
 // For importing, storing and managing images and their respective metadata.
 //
 #include <iostream>
+#include <filesystem>
 
 #include "src/argument_parser.h"
 #include "src/database.h"
@@ -13,6 +14,7 @@ const std::string MODE_IMPORT = "import";
 
 const std::string DATA_DIR = "dataset/";
 const std::string DATABASE_FILE = DATA_DIR  + "database.db";
+const std::string IMAGE_DIR = DATA_DIR + "images/";
 
 
 void validate_import_args (Arguments opt) {
@@ -26,17 +28,17 @@ void validate_import_args (Arguments opt) {
 };
 
 
+// For importing images from a directory on the local disk.
 void import_images(Arguments opt) {
-  // Validate args
   validate_import_args(opt);
-
-  // Initialise importer
   ImageImporter image_importer = ImageImporter(DATABASE_FILE);
-  std::string image_path_to_import = DATA_DIR + "allotment.jpeg";
 
-  // Import files
-  ImageToImport image_to_import = ImageToImport(image_path_to_import, "test");
-  std::vector images_to_import = {image_to_import};
+  std::vector<ImageToImport> images_to_import = {};
+  for (const auto & entry : std::filesystem::directory_iterator(opt.directory.value())) {
+    std::cout << "Creating image to import from " << entry.path() << std::endl;
+    images_to_import.push_back(ImageToImport(entry.path().string(), opt.source.value()));
+  }
+
   image_importer.import_images(images_to_import);
 };
 
@@ -45,10 +47,6 @@ int main(int argc, char* argv[]) {
   Arguments opt = parse_args(argc, argv);
   if (opt.mode == MODE_IMPORT) {
     import_images(opt);
-  } 
-  // else {
-  //   throw std::invalid_argument("Unhandled mode: " + opt.mode);
-  // }
-  
+  }
   return 0;
 }
