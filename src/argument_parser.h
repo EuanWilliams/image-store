@@ -18,6 +18,7 @@ class Arguments {
 
     // Required for import mode
     std::optional<std::string> directory;
+    std::optional<std::string> source;
 };
 
 // Parses a single arg
@@ -48,6 +49,7 @@ Arguments parse_args(int argc, char* argv[]) {
     Arguments parsed_args;
     parsed_args.mode = parse_arg(args, "--mode", false).value();
     parsed_args.directory = parse_arg(args, "--directory", true);
+    parsed_args.source = parse_arg(args, "--source", true);
 
     std::cout << "\n" << std::endl;
     return parsed_args;

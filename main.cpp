@@ -16,13 +16,25 @@ const std::string DATABASE_FILE = DATA_DIR  + "database.db";
 
 
 void validate_import_args (Arguments opt) {
+  if (opt.directory == std::nullopt) {
+    throw std::invalid_argument("--directory cannot be null for mode import.");
+  };
+
+  if (opt.source == std::nullopt) {
+    throw std::invalid_argument("--source cannot be null for mode import.");
+  };
 };
 
 
 void import_images(Arguments opt) {
+  // Validate args
+  validate_import_args(opt);
+
+  // Initialise importer
   ImageImporter image_importer = ImageImporter(DATABASE_FILE);
   std::string image_path_to_import = DATA_DIR + "allotment.jpeg";
 
+  // Import files
   ImageToImport image_to_import = ImageToImport(image_path_to_import, "test");
   std::vector images_to_import = {image_to_import};
   image_importer.import_images(images_to_import);
