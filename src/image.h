@@ -7,6 +7,17 @@
 
 #include <iostream>
 
+class RawFrame {
+  public:
+    unsigned char* frame;
+    unsigned long fsize;
+
+    RawFrame(unsigned char* _frame, unsigned long _fsize) {     // Constructor
+      frame = _frame;
+      fsize = _fsize;
+    }
+};
+
 class Image {
   public:
     int id;
@@ -16,13 +27,12 @@ class Image {
     std::string import_metadata;
 };
 
-easyexif::EXIFInfo parse_jpeg_exif(unsigned char *buffer, unsigned long fsize) {
+std::optional<easyexif::EXIFInfo> parse_jpeg_exif(RawFrame frame) {
   // Parse EXIF
   easyexif::EXIFInfo result;
-  int code = result.parseFrom(buffer, fsize);
-  delete[] buffer;
+  int code = result.parseFrom(frame.frame, frame.fsize);
   if (code) {
-    printf("Error parsing EXIF: code %d\n", code);
+    return std::nullopt;
   }
   return result;
 };
@@ -78,8 +88,7 @@ void output_exif_results(easyexif::EXIFInfo result) {
 };
 
 // Reads a JPEG into a buffer
-// TODO: This return type is wrong
-std::optional<unsigned char*> read_image(std::string image_path) {
+std::optional<RawFrame> read_image(std::string image_path) {
   // Open file to file pointer "*fp"
   FILE *fp = std::fopen(image_path.c_str(), "rb");
   if (!fp) {
@@ -102,5 +111,6 @@ std::optional<unsigned char*> read_image(std::string image_path) {
   }
   fclose(fp);
 
-  return buf;
+  RawFrame frame = RawFrame(buf, fsize);
+  return frame;
 };
