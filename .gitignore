@@ -1,11 +1,13 @@
 test_images
 
+
 image_store
 *.db
 .DS_Store
 dataset/
 
 #CMakeLists.txt.user
+build/Makefile
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
