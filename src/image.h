@@ -12,9 +12,9 @@ class RawFrame {
     unsigned char* frame;
     unsigned long fsize;
 
-    RawFrame(unsigned char* _frame, unsigned long _fsize) {     // Constructor
-      frame = _frame;
-      fsize = _fsize;
+    RawFrame(unsigned char* frame, unsigned long fsize) {     // Constructor
+      this->frame;
+      this->fsize;
     }
 };
 
